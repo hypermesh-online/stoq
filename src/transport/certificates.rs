@@ -168,7 +168,8 @@ impl TrustChainClient {
 
         // Create QUIC client configuration
         let mut roots = rustls::RootCertStore::empty();
-        roots.extend(webpki_roots::TLS_SERVER_ROOTS.iter().cloned());
+        // TODO: Use TrustChain CA root certificates only (100% standalone requirement)
+        // roots.extend(webpki_roots::TLS_SERVER_ROOTS.iter().cloned());
 
         let client_config = rustls::ClientConfig::builder()
             .with_root_certificates(roots)
@@ -298,7 +299,8 @@ impl TrustChainClient {
 
         // Create QUIC client configuration
         let mut roots = rustls::RootCertStore::empty();
-        roots.extend(webpki_roots::TLS_SERVER_ROOTS.iter().cloned());
+        // TODO: Use TrustChain CA root certificates only (100% standalone requirement)
+        // roots.extend(webpki_roots::TLS_SERVER_ROOTS.iter().cloned());
 
         let client_config = rustls::ClientConfig::builder()
             .with_root_certificates(roots)
@@ -381,7 +383,8 @@ impl TrustChainClient {
 
         // Create QUIC client configuration with hardened security
         let mut roots = rustls::RootCertStore::empty();
-        roots.extend(webpki_roots::TLS_SERVER_ROOTS.iter().cloned());
+        // TODO: Use TrustChain CA root certificates only (100% standalone requirement)
+        // roots.extend(webpki_roots::TLS_SERVER_ROOTS.iter().cloned());
 
         let client_config = rustls::ClientConfig::builder()
             .with_root_certificates(roots)
@@ -624,8 +627,9 @@ impl CertificateManager {
             }
             CertificateMode::TrustChainProduction => {
                 // For production, use TrustChain CA certificates
-                let mut root_store = rustls::RootCertStore::empty();
-                root_store.extend(webpki_roots::TLS_SERVER_ROOTS.iter().cloned());
+                let root_store = rustls::RootCertStore::empty();
+                // TODO: Load TrustChain CA root certificates only (100% standalone requirement)
+                // root_store.extend(webpki_roots::TLS_SERVER_ROOTS.iter().cloned());
 
                 let config = rustls::ClientConfig::builder()
                     .with_root_certificates(root_store)
